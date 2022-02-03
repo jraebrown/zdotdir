@@ -6,13 +6,14 @@
 # and then running this command
 # $ git diff > some-changes.patch
 if [[ -d $ZPLUGINDIR/pure ]] &&
-   [[ -f $ZDOTDIR/misc/pure-less-spacious.patch ]] &&
+   [[ -f $ZDOTDIR/patches/pure-less-spacious.patch ]] &&
    [[ ! -f $ZPLUGINDIR/pure/pure-less-spacious.patch ]]
 then
-  cp $ZDOTDIR/misc/pure-less-spacious.patch $ZPLUGINDIR/pure
+  cp $ZDOTDIR/patches/pure-less-spacious.patch $ZPLUGINDIR/pure
   echo "Patching pure prompt..."
   git -C "$ZPLUGINDIR/pure" apply $ZPLUGINDIR/pure/pure-less-spacious.patch
 fi
+PURE_PROMPT_SYMBOL="%%"
 
 # show exit code on right
 precmd_pipestatus() {
@@ -36,4 +37,3 @@ add-zsh-hook precmd precmd_pipestatus
 # https://unix.stackexchange.com/questions/685666/zsh-how-do-i-remove-block-prefixes-when-writing-multi-line-statements-in-intera
 # use 2 space indent for each new level
 PS2='${${${(%):-%_}//[^ ]}// /  }    '
-
